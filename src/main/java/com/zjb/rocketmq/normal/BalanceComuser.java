@@ -7,6 +7,7 @@ import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.common.consumer.ConsumeFromWhere;
 import org.apache.rocketmq.common.message.MessageExt;
+import org.apache.rocketmq.remoting.protocol.heartbeat.MessageModel;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
@@ -24,6 +25,8 @@ public class BalanceComuser {
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("balance_consumer");
         // 指定Namesrv地址信息.
         consumer.setNamesrvAddr("127.0.0.1:9876");
+        // 集群模式消费(默认就是，所以可以不用写)
+        consumer.setMessageModel(MessageModel.CLUSTERING);
         // 订阅Topic
         consumer.subscribe("TopicTest","*"); //tag tagA|tagB|tagC
         consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET); //从最早的偏移量开始消费
@@ -42,9 +45,11 @@ public class BalanceComuser {
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                         return ConsumeConcurrentlyStatus.RECONSUME_LATER;
+                        // 程序返回 Null或者直接抛出异常，对于RocketMQ来说都是走重试
                     }
                 }
-                return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
+                return ConsumeConcurrentlyStatus.CONSUME_SUCCESS; // 消费成功
+//                return ConsumeConcurrentlyStatus.RECONSUME_LATER; // 让所有消息重试
             }
         });
 
