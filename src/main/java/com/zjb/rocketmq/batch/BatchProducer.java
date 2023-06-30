@@ -50,7 +50,7 @@ public class BatchProducer {
             e.printStackTrace();
             producer.shutdown();
         }
-        // 如果不在发送消息，关闭Producer实例。
+        // 如果不在发送消息，关闭Producer实例。 RocketMQ5新特性 1:35:59
         producer.shutdown();
 
     }
