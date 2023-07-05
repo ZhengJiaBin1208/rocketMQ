@@ -1,5 +1,7 @@
 package com.zjb.rocketmq.utils;
 
+import com.zjb.rocketmq.bean.ConsumerBean;
+import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 
 /**
@@ -17,6 +19,14 @@ public class ConfigUtil {
         // 设置NameServer的地址
         producer.setNamesrvAddr(addr);
         return producer;
+    }
+
+    public static DefaultMQPushConsumer getConsumer(ConsumerBean consumerBean){
+        // 实例化消息生产者Producer
+        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer(consumerBean.getConsumerGroup());
+        // 设置NameServer的地址
+        consumer.setNamesrvAddr(consumerBean.getNamesrvAddr());
+        return consumer;
     }
 
 }
