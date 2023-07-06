@@ -1,6 +1,7 @@
 package com.zjb.rocketmq.filter;
 
 import com.zjb.rocketmq.bean.ConsumerBean;
+import com.zjb.rocketmq.consumer.BaseConsumer;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.common.consumer.ConsumeFromWhere;
 import org.apache.rocketmq.remoting.protocol.heartbeat.MessageModel;
@@ -23,6 +24,7 @@ public class TagFilterConsumerTagC {
         consumerBean.setProperty("a");
 //        consumerBean.setFilterType(FilterTypeEnum.SQL_TYPE.getType());
         consumerBean.setMessageModel(MessageModel.CLUSTERING);
-        FilterConsumer.openConsumer(consumerBean);
+        consumerBean.setMsgType("filter");
+        BaseConsumer.openConsumer(consumerBean);
     }
 }

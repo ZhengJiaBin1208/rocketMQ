@@ -6,8 +6,8 @@ import org.apache.rocketmq.common.consumer.ConsumeFromWhere;
 import org.apache.rocketmq.remoting.protocol.heartbeat.MessageModel;
 
 /**
- * @ClassName Consumer
- * @Description TODO
+ * @ClassName ConsumerBean
+ * @Description 消费者Bean
  * @Author zhengjiabin
  * @Date 2023/7/5 14:41
  * @Version 1.0
@@ -23,7 +23,7 @@ public class ConsumerBean {
     private String namesrvAddr;
 
     // 消费模式
-    private MessageModel messageModel;
+    private MessageModel messageModel = MessageModel.CLUSTERING;
 
     // 过滤条件
     private String filter;
@@ -39,6 +39,13 @@ public class ConsumerBean {
 
     // 消费者Property
     private String property;
+
+    /**
+     * 消费者类型:
+     * 0 异步
+     * 1 顺序
+     */
+    private String msgType;
 
 
 
