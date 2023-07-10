@@ -1,14 +1,11 @@
 package com.zjb.rocketmq.transaction;
 
-import com.zjb.rocketmq.utils.ConfigUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.exception.MQClientException;
-import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.client.producer.SendStatus;
 import org.apache.rocketmq.client.producer.TransactionListener;
 import org.apache.rocketmq.client.producer.TransactionMQProducer;
-import org.apache.rocketmq.client.producer.TransactionSendResult;
 import org.apache.rocketmq.common.message.Message;
 import org.apache.rocketmq.remoting.common.RemotingHelper;
 
@@ -31,10 +28,10 @@ import java.util.concurrent.TimeUnit;
  * @Version 1.0
  **/
 @Slf4j
-public class TransactionProducer {
+public class TransactionProducer1 {
     public static void main(String[] args) throws MQClientException, InterruptedException {
         // 创建事务监听器
-        TransactionListener transactionListener = new TransactionListenerImpl();
+        TransactionListener transactionListener = new TransactionListenerImpl1();
 
         // 1.创建一个事务消息发送的生产者(TransactionProducer生产者分组: 针对就是分布式消息)
         TransactionMQProducer producer = new TransactionMQProducer("TransactionProducer");
@@ -78,8 +75,5 @@ public class TransactionProducer {
         producer.shutdown();
     }
 
-    public static void Listener(){
 
-        ConfigUtil.getProducer("balance_consumer")
-    }
 }
